@@ -6,8 +6,13 @@ var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
 var nodemon = require('gulp-nodemon');
 
+var path = {
+  src: ['api/**/*.js', 'index.js'],
+  test: 'spec/**/*.js'
+};
+
 gulp.task('lint', function() {
-  return gulp.src(['public/js/*.js', 'routes/**/*.js'])
+  return gulp.src(['api/**/*.js', 'index.js'])
   .pipe(jshint())
   .pipe(jshint.reporter('default'));
 });
@@ -24,9 +29,8 @@ gulp.task('develop', function () {
   })
 });
 
-
-gulp.task('test', function () {
-  gulp.src('spec/**/*.js')
+gulp.task('mocha', function () {
+  gulp.src(path.test)
   .pipe(mocha({
     reporter: 'nyan'
   }));
@@ -34,9 +38,8 @@ gulp.task('test', function () {
  
 // Watch Files For Changes
 gulp.task('watch', function() {
-  gulp.watch(['api/**/*.js', 'app.js', 'test/**/*.js'], ['lint', 'test']);
-  gulp.watch('sass/*.sass', ['sass']);
+  gulp.watch(path.src, ['lint']);
 });
- 
+
 // Default Task
-gulp.task('default', ['lint', 'test', 'develop', 'watch']);
+gulp.task('default', ['lint', 'develop', 'watch']);

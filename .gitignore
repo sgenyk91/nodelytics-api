@@ -1,6 +1,4 @@
-###Lytics Specific###
-# secret config
-config/secret_config.js
+###Nodelytics Specific###
 
 ###Node###
 
